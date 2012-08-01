@@ -60,7 +60,18 @@
 }
 
 - (void)onTick
-{   
+{
+ /*   [self.countdownLabel setText:displayString];
+
+    // update UI elements
+    [self.completionBar setProgress:lifeCompletionPercentage animated:YES];*/
+}
+
+// This function returns a dictionary with 2 keys @"displayString" and @"lifeCompletionPercentage"
+- (NSDictionary *)getDisplayStringWithFormat:(DisplayFormat)displayFormat
+{
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
+    
     // Note: all intervals are in seconds
     
     // the interval of your total life (from birth to death)
@@ -75,33 +86,45 @@
     // compute the percentage of life completion
     float lifeCompletionPercentage = (float)dobToNowInterval/(float)dobToDeathInterval;
     
-    // Compute the countdown timer values
-    int years, months, days, hours, minutes, seconds;
+    NSString *displayString;
     
-    years = floor(nowToDeathInterval/(60*60*24*30*12));
-
-    nowToDeathInterval %= 60*60*24*30*12;
-    months = floor(nowToDeathInterval/(60*60*24*30));
+    switch(displayFormat) {
+        case(DisplayFormatFull):
+        {
+            int years, months, days, hours, minutes, seconds;
+            
+            years = floor(nowToDeathInterval/(60*60*24*30*12));
+            
+            nowToDeathInterval %= 60*60*24*30*12;
+            months = floor(nowToDeathInterval/(60*60*24*30));
+            
+            nowToDeathInterval %= 60*60*24*30;
+            days = floor(nowToDeathInterval/(60*60*24));
+            
+            nowToDeathInterval %= 60*60*24;
+            hours = floor(nowToDeathInterval/(60*60));
+            
+            nowToDeathInterval %= 60*60;
+            minutes = floor(nowToDeathInterval/60);
+            
+            nowToDeathInterval %= 60;
+            seconds = nowToDeathInterval;
+            
+            displayString = [NSString stringWithFormat:@"%d years, %d months, %d days, %d hours, %d minutes, and %d seconds left.",
+                                       years, months, days, hours, minutes, seconds];
+            break;
+        }
+        case(DisplayFormatSeconds):
+        {
+            displayString = 
+            break;
+        }
+        case(DisplayFormatPercent):
+            break;
+    }
     
-    nowToDeathInterval %= 60*60*24*30;
-    days = floor(nowToDeathInterval/(60*60*24));
     
-    nowToDeathInterval %= 60*60*24;
-    hours = floor(nowToDeathInterval/(60*60));
-    
-    nowToDeathInterval %= 60*60;
-    minutes = floor(nowToDeathInterval/60);
-    
-    nowToDeathInterval %= 60;
-    seconds = nowToDeathInterval;
-    
-    NSString *displayString = [NSString stringWithFormat:@"%d years, %d months, %d days, %d hours, %d minutes, and %d seconds left.",
-                               years, months, days, hours, minutes, seconds];
-    
-    [self.countdownLabel setText:displayString];
-
-    // update UI elements
-    [self.completionBar setProgress:lifeCompletionPercentage animated:YES];
+    dictionary
 }
 
 @end

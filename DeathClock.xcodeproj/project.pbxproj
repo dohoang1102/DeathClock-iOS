@@ -21,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		007C1AE915C9E2730017816D /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		009EA83315B878D200609EC2 /* DeathClock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeathClock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		009EA83715B878D200609EC2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		009EA83915B878D200609EC2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -93,6 +94,7 @@
 				009EA85C15B8803300609EC2 /* UserDetailsViewController.h */,
 				009EA85D15B8803300609EC2 /* UserDetailsViewController.m */,
 				009EA85E15B8803300609EC2 /* UserDetailsViewController_iPhone.xib */,
+				007C1AE915C9E2730017816D /* Constants.h */,
 				009EA83E15B878D200609EC2 /* Supporting Files */,
 			);
 			path = DeathClock;
@@ -264,6 +266,7 @@
 				GCC_PREFIX_HEADER = "DeathClock/DeathClock-Prefix.pch";
 				INFOPLIST_FILE = "DeathClock/DeathClock-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -275,6 +278,7 @@
 				GCC_PREFIX_HEADER = "DeathClock/DeathClock-Prefix.pch";
 				INFOPLIST_FILE = "DeathClock/DeathClock-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -298,6 +302,7 @@
 				009EA85615B878D200609EC2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

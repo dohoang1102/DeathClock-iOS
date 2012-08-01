@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Constants.h"
 
 @interface UserDetailsViewController : UIViewController
 
 @property (nonatomic, retain) IBOutlet UIDatePicker *dobPicker;
+@property (nonatomic, retain) IBOutlet UISegmentedControl *formatSegControl;
 
 - (IBAction)saveButtonClicked:(id)sender;
 

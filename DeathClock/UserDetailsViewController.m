@@ -14,8 +14,6 @@
 
 @implementation UserDetailsViewController
 
-@synthesize dobPicker;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -54,6 +52,22 @@
     
     // persist death date
     [defaults setObject:[self getDeathDateFromDobDate:dobDate] forKey:@"deathDate"];
+    
+    // persist the format
+    switch([self.formatSegControl selectedSegmentIndex]) {
+        case(0):
+            [defaults setInteger:DisplayFormatFull forKey:@"displayFormat"];
+            break;
+        case(1):
+            [defaults setInteger:DisplayFormatSeconds forKey:@"displayFormat"];
+            break;
+        case(2):
+            [defaults setInteger:DisplayFormatPercent forKey:@"displayFormat"];
+            break;
+        default:
+            // TODO: throw an exception here
+            break;
+    }
     
     [self dismissModalViewControllerAnimated:true];
 }
