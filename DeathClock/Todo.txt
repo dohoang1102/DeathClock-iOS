@@ -1,0 +1,2 @@
+- convert int to NSInteger
+- remove tick from viewController.h

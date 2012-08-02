@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		007C1B2815CB0D6B0017816D /* Todo.txt in Resources */ = {isa = PBXBuildFile; fileRef = 007C1B2715CB0D6B0017816D /* Todo.txt */; };
 		009EA83815B878D200609EC2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 009EA83715B878D200609EC2 /* UIKit.framework */; };
 		009EA83A15B878D200609EC2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 009EA83915B878D200609EC2 /* Foundation.framework */; };
 		009EA83C15B878D200609EC2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 009EA83B15B878D200609EC2 /* CoreGraphics.framework */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		007C1AE915C9E2730017816D /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		007C1B2715CB0D6B0017816D /* Todo.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Todo.txt; path = DeathClock/Todo.txt; sourceTree = "<group>"; };
 		009EA83315B878D200609EC2 /* DeathClock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeathClock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		009EA83715B878D200609EC2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		009EA83915B878D200609EC2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -58,6 +60,7 @@
 		009EA82815B878D100609EC2 = {
 			isa = PBXGroup;
 			children = (
+				007C1B2715CB0D6B0017816D /* Todo.txt */,
 				009EA83D15B878D200609EC2 /* DeathClock */,
 				009EA83615B878D200609EC2 /* Frameworks */,
 				009EA83415B878D200609EC2 /* Products */,
@@ -165,6 +168,7 @@
 				009EA84E15B878D200609EC2 /* ViewController_iPhone.xib in Resources */,
 				009EA85115B878D200609EC2 /* ViewController_iPad.xib in Resources */,
 				009EA86015B8803300609EC2 /* UserDetailsViewController_iPhone.xib in Resources */,
+				007C1B2815CB0D6B0017816D /* Todo.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

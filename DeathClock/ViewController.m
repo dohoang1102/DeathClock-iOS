@@ -15,12 +15,16 @@
 
 @implementation ViewController
 
-@synthesize countdownLabel, completionBar, deathDate, dobDate;
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    [NSTimer scheduledTimerWithTimeInterval:0.5
+                                     target:self
+                                   selector:@selector(onTick)
+                                   userInfo:nil
+                                    repeats:YES];
 }
 
 - (void)viewDidUnload
@@ -40,29 +44,16 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    if (![defaults objectForKey:@"deathDate"]) {
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"deathDate"]) {
         // not initialized, show them the setup screen
-        NSLog(@"No deathTimestamp detected, showing setup screen.");
-
-        UserDetailsViewController *userDetailsViewController = [[UserDetailsViewController alloc] initWithNibName:@"UserDetailsViewController_iPhone" bundle:nil];
-        [self presentModalViewController:userDetailsViewController animated:true];
-    } else {        
-        [self setDeathDate:[defaults objectForKey:@"deathDate"]];
-        [self setDobDate:[defaults objectForKey:@"dobDate"]];
-        
-        // show them the countdown screen
-        NSLog(@"deathTimeStamp with value: %@ found. Showing countdown screen.", [self deathDate]);
-        
-        [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(onTick) userInfo:nil repeats:YES];
+        [self showUserDetailsView];
     }
 }
 
 - (void)onTick
 {
     // TODO: get displayStringFormat from NSUserDefaults
-    NSDictionary *dictionary = [self getDisplayStringWithFormat:DisplayFormatSeconds];
+    NSDictionary *dictionary = [self getDisplayDataWithFormat:[[NSUserDefaults standardUserDefaults] integerForKey:@"displayFormat"]];
                                 
     NSString *displayString = [dictionary objectForKey:@"displayString"];
     NSNumber *lifeCompletionPercentage = [dictionary objectForKey:@"lifeCompletionPercentage"];
@@ -73,18 +64,33 @@
     [self.completionBar setProgress:(1.0-[lifeCompletionPercentage floatValue]) animated:YES];
 }
 
+- (void)screenDoubleTapped:(id)sender
+{
+    [self showUserDetailsView];
+}
+
+- (void)showUserDetailsView
+{
+    UserDetailsViewController *userDetailsViewController = [[UserDetailsViewController alloc] initWithNibName:@"UserDetailsViewController_iPhone" bundle:nil];
+    
+    [self presentModalViewController:userDetailsViewController animated:true];
+}
+
 // This function returns a dictionary with 2 keys @"displayString" and @"lifeCompletionPercentage"
-- (NSDictionary *)getDisplayStringWithFormat:(DisplayFormat)displayFormat
+- (NSDictionary *)getDisplayDataWithFormat:(DisplayFormat)displayFormat
 {
     NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
+    
+    NSDate *deathDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"deathDate"];
+    NSDate *dobDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"dobDate"];
     
     // Note: all intervals are in seconds
     
     // the interval of your total life (from birth to death)
-    long long dobToDeathInterval = round([[self deathDate] timeIntervalSinceDate:[self dobDate]]);
+    long long dobToDeathInterval = round([deathDate timeIntervalSinceDate:dobDate]);
     
     // interval representing your total life left (now til death)
-    long nowToDeathInterval = round([[self deathDate] timeIntervalSinceNow]);
+    long nowToDeathInterval = round([deathDate timeIntervalSinceNow]);
     
     // interval representing the amount you've lived so far (birth til now)
     long dobToNowInterval = dobToDeathInterval - nowToDeathInterval;
