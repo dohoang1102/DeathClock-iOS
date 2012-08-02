@@ -48,7 +48,7 @@
 
         UserDetailsViewController *userDetailsViewController = [[UserDetailsViewController alloc] initWithNibName:@"UserDetailsViewController_iPhone" bundle:nil];
         [self presentModalViewController:userDetailsViewController animated:true];
-    } else {
+    } else {        
         [self setDeathDate:[defaults objectForKey:@"deathDate"]];
         [self setDobDate:[defaults objectForKey:@"dobDate"]];
         
@@ -61,10 +61,16 @@
 
 - (void)onTick
 {
- /*   [self.countdownLabel setText:displayString];
+    // TODO: get displayStringFormat from NSUserDefaults
+    NSDictionary *dictionary = [self getDisplayStringWithFormat:DisplayFormatSeconds];
+                                
+    NSString *displayString = [dictionary objectForKey:@"displayString"];
+    NSNumber *lifeCompletionPercentage = [dictionary objectForKey:@"lifeCompletionPercentage"];
+    
+    [self.countdownLabel setText:displayString];
 
     // update UI elements
-    [self.completionBar setProgress:lifeCompletionPercentage animated:YES];*/
+    [self.completionBar setProgress:(1.0-[lifeCompletionPercentage floatValue]) animated:YES];
 }
 
 // This function returns a dictionary with 2 keys @"displayString" and @"lifeCompletionPercentage"
@@ -84,6 +90,7 @@
     long dobToNowInterval = dobToDeathInterval - nowToDeathInterval;
     
     // compute the percentage of life completion
+    // TODO: look into whether we should change this to lifeLeftPercentage
     float lifeCompletionPercentage = (float)dobToNowInterval/(float)dobToDeathInterval;
     
     NSString *displayString;
@@ -116,15 +123,20 @@
         }
         case(DisplayFormatSeconds):
         {
-            displayString = 
+            displayString = [NSString stringWithFormat:@"%ld seconds left.", nowToDeathInterval];
             break;
         }
         case(DisplayFormatPercent):
+        {
+            displayString = [NSString stringWithFormat:@"%.02f/100%% health.", (100-lifeCompletionPercentage*100)];
             break;
+        }
     }
     
+    [dictionary setObject:displayString forKey:@"displayString"];
+    [dictionary setObject:[NSNumber numberWithFloat:lifeCompletionPercentage] forKey:@"lifeCompletionPercentage"];
     
-    dictionary
+    return dictionary;
 }
 
 @end
